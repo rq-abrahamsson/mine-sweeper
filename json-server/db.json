@@ -1,0 +1,149 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "Margaret.Hudson@Durgan.biz",
+      "username": "Halie.Nicolas",
+      "firstname": "Celestino",
+      "lastname": "Goodwin",
+      "password": "9Jayson02"
+    },
+    {
+      "id": 2,
+      "email": "Labadie_John@Ava.io",
+      "username": "Sunny.Lynch",
+      "firstname": "Sean",
+      "lastname": "Boyle",
+      "password": "1Ernestine15"
+    },
+    {
+      "id": 3,
+      "email": "Bernadette.Bode@Stanford.com",
+      "username": "Adeline.Turcotte",
+      "firstname": "Lucius",
+      "lastname": "Hodkiewicz",
+      "password": "7Elliott37"
+    },
+    {
+      "id": 4,
+      "email": "Anderson.Candido@Dawson.biz",
+      "username": "Elsie.Walker",
+      "firstname": "Kim",
+      "lastname": "Rogahn",
+      "password": "8Kaleigh93"
+    },
+    {
+      "id": 5,
+      "email": "Blick.Edd@Skiles.biz",
+      "username": "Vivienne_Skiles",
+      "firstname": "Estell",
+      "lastname": "Kris",
+      "password": "6Alford77"
+    },
+    {
+      "id": 6,
+      "email": "Tiana.Gaylord@Bernhard.org",
+      "username": "Jerde.Onie",
+      "firstname": "Tamara",
+      "lastname": "Jakubowski",
+      "password": "0Clementine48"
+    },
+    {
+      "id": 7,
+      "email": "Wisozk_Cristobal@gmail.com",
+      "username": "Ettie.Muller",
+      "firstname": "Vance",
+      "lastname": "Rath",
+      "password": "7Connie20"
+    },
+    {
+      "id": 8,
+      "email": "Lyda_Kirlin@yahoo.com",
+      "username": "Okuneva_Ike",
+      "firstname": "Lavina",
+      "lastname": "Schuster",
+      "password": "4Margot56"
+    },
+    {
+      "id": 9,
+      "email": "Dock_Wolff@yahoo.com",
+      "username": "Kevin.Cormier",
+      "firstname": "Pearl",
+      "lastname": "Robel",
+      "password": "8Minerva67"
+    },
+    {
+      "id": 10,
+      "email": "Oberbrunner.Reymundo@Thompson.ca",
+      "username": "Alexandrine_Reinger",
+      "firstname": "Sharon",
+      "lastname": "Bernhard",
+      "password": "2Jewell52"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Minima rem",
+      "body": "Perferendis optio quod eaque. Et vero ipsa amet ut. Consectetur fuga quo quos non quidem.",
+      "authorId": 261
+    },
+    {
+      "id": 2,
+      "title": "Nesciunt quisquam",
+      "body": "Quibusdam et sint odit natus qui praesentium. Optio id odit excepturi. Et qui minus et. Ipsam ab non tenetur molestiae. Vero possimus aut. Magni error optio sit.",
+      "authorId": 179
+    },
+    {
+      "id": 3,
+      "title": "Consequatur inventore",
+      "body": "Reiciendis et molestias maxime ipsa corrupti. Quam rerum rerum nemo est rem veniam autem. Facere beatae perspiciatis corrupti magnam ratione reprehenderit quod sit. Aperiam qui perferendis provident delectus at et sit dolor.",
+      "authorId": 57
+    },
+    {
+      "id": 4,
+      "title": "Amet quos",
+      "body": "Aut omnis harum saepe molestiae voluptas. Consequatur labore a voluptatem velit illo nisi saepe a. Velit deserunt esse quia dolorem commodi enim. Aperiam architecto aliquid soluta. Culpa et iusto delectus sunt cumque. Ullam porro non.",
+      "authorId": 155
+    },
+    {
+      "id": 5,
+      "title": "Omnis beatae",
+      "body": "Temporibus perferendis quasi ullam officiis. Error eos autem cum totam aliquid quo esse deleniti consequatur. Quia perferendis eos et ipsum consequatur. Tempora eius natus eum hic cum. Quo hic recusandae quae sit.",
+      "authorId": 862
+    },
+    {
+      "id": 6,
+      "title": "Ipsum totam sint",
+      "body": "Fuga iure sit. Consequatur quis adipisci iste non repellat aliquam. Ipsa quo facilis est est quis eveniet. Tempora dicta nemo non.",
+      "authorId": 2
+    },
+    {
+      "id": 7,
+      "title": "Enim est quidem",
+      "body": "Perferendis perferendis nesciunt aliquam rem veniam rerum. Ea velit ut velit eum quia voluptatem. Non et molestias magnam. Ipsa minus distinctio iure. Ea quod deserunt consequuntur odio vel natus. Saepe deserunt modi porro aperiam et.",
+      "authorId": 120
+    },
+    {
+      "id": 8,
+      "title": "Libero possimus blanditiis",
+      "body": "Illo incidunt sequi et qui repudiandae et deleniti ullam. Eum magnam nihil quisquam quae. Exercitationem eveniet tempore autem dolores harum sit ipsa. Voluptates earum aliquam ea. Cum quia ut nihil cum.",
+      "authorId": 991
+    },
+    {
+      "id": 9,
+      "title": "Dolores doloribus eum",
+      "body": "Nihil ducimus minima sed. Vitae ut inventore voluptatem ut est omnis autem. Sit autem rerum officia voluptatem. At soluta mollitia deserunt vel corrupti. Qui laborum quisquam eius molestiae qui.",
+      "authorId": 629
+    },
+    {
+      "id": 10,
+      "title": "Impedit maxime",
+      "body": "Ut voluptate asperiores rerum aut provident. Debitis ut accusantium in qui rem explicabo ut. Sequi adipisci et enim unde eos a. Neque deleniti voluptatum incidunt ratione magni maiores rem ut. Consequatur qui id recusandae et quisquam ipsa.",
+      "authorId": 70
+    }
+  ],
+  "profile": {
+    "id": 10
+  }
+}
