@@ -1,6 +1,9 @@
 module Messages exposing (..)
 
+import GameBoard.Messages
+
 
 type Msg
     = NoOp
-    | Increment
+    | InitBoard
+    | GameBoardMsg GameBoard.Messages.Msg

@@ -2,11 +2,14 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
 
 
 -- Custom imports
 
-import GameBoard.Board as Board
+import GameBoard.Models exposing (Board, boardModel)
+import GameBoard.GameBoard exposing (gameBoard)
+import GameBoard.Update
 import Messages exposing (Msg(..))
 
 
@@ -28,13 +31,13 @@ main =
 
 
 type alias Model =
-    { number : Int
+    { board : Board
     }
 
 
 model : Model
 model =
-    { number = 0
+    { board = boardModel
     }
 
 
@@ -53,8 +56,15 @@ update msg model =
         NoOp ->
             ( model, Cmd.none )
 
-        Increment ->
-            ( { model | number = model.number + 1 }, Cmd.none )
+        InitBoard ->
+            ( { model | board = boardModel }, Cmd.none )
+
+        GameBoardMsg subMsg ->
+            let
+                ( updatedGameBoard, cmd ) =
+                    GameBoard.Update.update subMsg model.board
+            in
+                ( { model | board = updatedGameBoard }, Cmd.map GameBoardMsg cmd )
 
 
 
@@ -65,7 +75,8 @@ view : Model -> Html Msg
 view model =
     div [ style [ ( "margin-top", "30px" ), ( "text-align", "center" ) ] ]
         [ div []
-            [ Board.gameBoard
+            [ button [ onClick InitBoard ] [ span [] [ text "Init board" ] ]
+            , Html.map GameBoardMsg (gameBoard model.board)
             ]
         ]
 
