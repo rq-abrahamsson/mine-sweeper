@@ -8,7 +8,6 @@ import Dict
 
 
 -- Custom imports
--- import Messages exposing (Msg(..))
 
 import GameBoard.Messages exposing (..)
 import GameBoard.Models exposing (..)
@@ -26,15 +25,6 @@ gameBoard board =
             [ drawSquares board
             ]
         ]
-
-
-
---  exploredSquare 0 (Point { x = 10, y = 30 })
--- , exploredSquare 2 (Point { x = 25, y = 25 })
--- , unexploredSquare (Point { x = 40, y = 40 })
--- , flagSquare (Point { x = 50, y = 30 })
--- , unknownSquare (Point { x = 60, y = 30 })
--- , bombSquare (Point { x = 60, y = 10 })
 
 
 drawSquares : Board -> Svg.Svg Msg
