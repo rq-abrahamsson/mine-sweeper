@@ -1,5 +1,10 @@
 module GameBoard.Update exposing (..)
 
+import Dict
+
+
+-- Custom imports
+
 import GameBoard.Messages exposing (Msg(..))
 import GameBoard.Models exposing (..)
 
@@ -11,4 +16,34 @@ update message gameBoard =
             ( gameBoard, Cmd.none )
 
         SquareClicked coord ->
-            ( gameBoard, Cmd.none )
+            ( clicked gameBoard coord, Cmd.none )
+
+
+clicked : Board -> Coord -> Board
+clicked board coord =
+    let
+        square =
+            Dict.get coord board
+    in
+        case square of
+            Just s ->
+                Dict.insert coord (squareClicked s) board
+
+            Nothing ->
+                board
+
+
+squareClicked : Square -> Square
+squareClicked square =
+    case square of
+        Unexplored x None ->
+            Explored x
+
+        Unexplored x Flag ->
+            square
+
+        Unexplored x QuestionMark ->
+            square
+
+        _ ->
+            square
