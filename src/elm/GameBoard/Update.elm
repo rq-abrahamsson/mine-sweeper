@@ -18,6 +18,9 @@ update message gameBoard =
         SquareClicked coord ->
             ( clicked gameBoard coord, Cmd.none )
 
+        RightClick coord ->
+            ( rightClicked gameBoard coord, Cmd.none )
+
 
 clicked : Board -> Coord -> Board
 clicked board coord =
@@ -44,6 +47,30 @@ squareClicked square =
 
         Unexplored x QuestionMark ->
             square
+
+        _ ->
+            square
+
+
+rightClicked : Board -> Coord -> Board
+rightClicked board coord =
+    let
+        square =
+            Dict.get coord board
+    in
+        case square of
+            Just s ->
+                Dict.insert coord (squareRightClicked s) board
+
+            Nothing ->
+                board
+
+
+squareRightClicked : Square -> Square
+squareRightClicked square =
+    case square of
+        Explored x ->
+            Unexplored x None
 
         _ ->
             square

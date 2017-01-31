@@ -4,6 +4,7 @@ module Update exposing (..)
 
 import GameBoard.Update
 import Models exposing (..)
+import GameBoard.Models exposing (boardModel)
 import Messages exposing (Msg(..))
 
 
@@ -14,7 +15,7 @@ update msg model =
             ( model, Cmd.none )
 
         InitBoard ->
-            ( model, Cmd.none )
+            ( { model | board = boardModel }, Cmd.none )
 
         GameBoardMsg subMsg ->
             let
