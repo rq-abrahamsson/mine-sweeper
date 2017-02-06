@@ -3,6 +3,11 @@ module GameBoard.Models exposing (..)
 import Dict
 
 
+type Direction
+    = Left
+    | Right
+
+
 type Point
     = Point
         { x : Int
@@ -22,6 +27,7 @@ type Tag
 
 type BombsNearby
     = Bombs Int
+    | Undefined
     | IsBomb
 
 
@@ -32,6 +38,28 @@ type alias Board =
 type Square
     = Unexplored BombsNearby Tag
     | Explored BombsNearby
+
+
+generateModel : Int -> Dict.Dict Coord Square
+generateModel size =
+    let
+        l =
+            List.range 1 size
+    in
+        Dict.fromList
+            (List.concatMap
+                (\e -> e)
+                (List.map
+                    (\e1 ->
+                        List.map
+                            (\e2 ->
+                                ( ( e1, e2 ), Unexplored (Bombs 1) None )
+                            )
+                            l
+                    )
+                    l
+                )
+            )
 
 
 boardModel : Dict.Dict Coord Square

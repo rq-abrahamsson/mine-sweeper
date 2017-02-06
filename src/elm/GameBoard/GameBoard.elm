@@ -61,6 +61,9 @@ drawSquare ( coord, square ) =
             Explored IsBomb ->
                 bombSquare (Point { x = x * 11, y = y * 11 })
 
+            Explored Undefined ->
+                unexploredSquare (Point { x = x * 11, y = y * 11 })
+
 
 onRightClick message =
     HE.onWithOptions
@@ -82,10 +85,11 @@ bombSquare (Point { x, y }) =
         , SA.stroke "#333"
         , SA.opacity "0.5"
         , onRightClick
-            (RightClick
+            (SquareClicked
                 ( round (toFloat (x) / 10)
                 , round (toFloat (y) / 10)
                 )
+                Right
             )
         ]
         []
@@ -103,6 +107,7 @@ unknownSquare point =
                     ( round (toFloat (x) / 10)
                     , round (toFloat (y) / 10)
                     )
+                    Left
                 )
             ]
             [ unexploredSquare point
@@ -138,6 +143,7 @@ exploredSquare number point =
                             ( round (toFloat (x) / 10)
                             , round (toFloat (y) / 10)
                             )
+                            Left
                         )
                     ]
                     [ emptySquare point
@@ -185,6 +191,7 @@ unexploredSquare (Point { x, y }) =
                 ( round (toFloat (x) / 10)
                 , round (toFloat (y) / 10)
                 )
+                Left
             )
         ]
         []

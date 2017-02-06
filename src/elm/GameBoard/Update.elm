@@ -15,29 +15,41 @@ update message gameBoard =
         InitBoard ->
             ( gameBoard, Cmd.none )
 
-        SquareClicked coord ->
-            ( clicked gameBoard coord, Cmd.none )
-
-        RightClick coord ->
-            ( rightClicked gameBoard coord, Cmd.none )
+        SquareClicked coord direction ->
+            ( isClicked gameBoard coord direction, Cmd.none )
 
 
-clicked : Board -> Coord -> Board
-clicked board coord =
+
+--RightClick coord ->
+--    ( rightClicked gameBoard coord, Cmd.none )
+
+
+isClicked : Board -> Coord -> Direction -> Board
+isClicked board coord dir =
+    case dir of
+        Right ->
+            rightClicked board coord
+
+        Left ->
+            leftClicked board coord
+
+
+leftClicked : Board -> Coord -> Board
+leftClicked board coord =
     let
         square =
             Dict.get coord board
     in
         case square of
             Just s ->
-                Dict.insert coord (squareClicked s) board
+                Dict.insert coord (squareLeftClicked s) board
 
             Nothing ->
                 board
 
 
-squareClicked : Square -> Square
-squareClicked square =
+squareLeftClicked : Square -> Square
+squareLeftClicked square =
     case square of
         Unexplored x None ->
             Explored x
