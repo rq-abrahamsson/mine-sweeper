@@ -23,7 +23,8 @@ gameBoard board =
             [ SA.width "220"
             , SA.height "220"
             , SA.viewBox "0 0 220 220"
-            , SA.style "cursor: pointer"
+              --, SA.style "cursor: pointer"
+            , SA.style "default"
             ]
             [ drawSquares board
             ]
@@ -39,30 +40,38 @@ drawSquares board =
         )
 
 
+scale : number
+scale =
+    11
+
+
 drawSquare : ( Coord, Square ) -> Svg.Svg Msg
 drawSquare ( coord, square ) =
     let
         ( x, y ) =
             coord
+
+        point =
+            (Point { x = x * scale, y = y * scale })
     in
         case square of
             Unexplored _ Flag ->
-                flagSquare (Point { x = x * 11, y = y * 11 })
+                flagSquare point
 
             Unexplored _ QuestionMark ->
-                unknownSquare (Point { x = x * 11, y = y * 11 })
+                unknownSquare point
 
             Unexplored _ None ->
-                unexploredSquare (Point { x = x * 11, y = y * 11 })
+                unexploredSquare point
 
             Explored (Bombs number) ->
-                exploredSquare number (Point { x = x * 11, y = y * 11 })
+                exploredSquare number point
 
             Explored IsBomb ->
-                bombSquare (Point { x = x * 11, y = y * 11 })
+                bombSquare point
 
             Explored Undefined ->
-                unexploredSquare (Point { x = x * 11, y = y * 11 })
+                unexploredSquare point
 
 
 onRightClick message =
@@ -86,8 +95,8 @@ bombSquare (Point { x, y }) =
         , SA.opacity "0.5"
         , onRightClick
             (SquareClicked
-                ( round (toFloat (x) / 10)
-                , round (toFloat (y) / 10)
+                ( round (toFloat (x) / scale)
+                , round (toFloat (y) / scale)
                 )
                 Right
             )
@@ -104,8 +113,8 @@ unknownSquare point =
         Svg.g
             [ SE.onClick
                 (SquareClicked
-                    ( round (toFloat (x) / 10)
-                    , round (toFloat (y) / 10)
+                    ( round (toFloat (x) / scale)
+                    , round (toFloat (y) / scale)
                     )
                     Left
                 )
@@ -140,8 +149,8 @@ exploredSquare number point =
                 Svg.g
                     [ SE.onClick
                         (SquareClicked
-                            ( round (toFloat (x) / 10)
-                            , round (toFloat (y) / 10)
+                            ( round (toFloat (x) / scale)
+                            , round (toFloat (y) / scale)
                             )
                             Left
                         )
@@ -188,8 +197,8 @@ unexploredSquare (Point { x, y }) =
         , SA.opacity "0.5"
         , SE.onClick
             (SquareClicked
-                ( round (toFloat (x) / 10)
-                , round (toFloat (y) / 10)
+                ( round (toFloat (x) / scale)
+                , round (toFloat (y) / scale)
                 )
                 Left
             )

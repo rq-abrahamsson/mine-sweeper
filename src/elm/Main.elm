@@ -6,7 +6,6 @@ import Html exposing (..)
 -- Custom imports
 
 import View exposing (view)
-import GameBoard.Update
 import Models exposing (..)
 import Messages exposing (Msg(..))
 import Update exposing (..)
