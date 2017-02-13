@@ -16,12 +16,16 @@ update message gameBoard =
             ( gameBoard, Cmd.none )
 
         SquareClicked coord direction ->
-            ( isClicked gameBoard coord direction, Cmd.none )
+            let
+                square =
+                    Dict.get coord gameBoard
+            in
+                case square of
+                    Just (Uninitialized tag) ->
+                        ( gameBoard, Cmd.none )
 
-
-
---RightClick coord ->
---    ( rightClicked gameBoard coord, Cmd.none )
+                    _ ->
+                        ( isClicked gameBoard coord direction, Cmd.none )
 
 
 isClicked : Board -> Coord -> Direction -> Board

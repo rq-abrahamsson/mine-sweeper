@@ -37,11 +37,12 @@ type alias Board =
 
 type Square
     = Unexplored BombsNearby Tag
+    | Uninitialized Tag
     | Explored BombsNearby
 
 
-generateModel : Int -> Dict.Dict Coord Square
-generateModel size =
+generateBoard : Int -> Dict.Dict Coord Square
+generateBoard size =
     let
         l =
             List.range 1 size
@@ -53,7 +54,7 @@ generateModel size =
                     (\e1 ->
                         List.map
                             (\e2 ->
-                                ( ( e1, e2 ), Unexplored (Bombs 1) None )
+                                ( ( e1, e2 ), Uninitialized None )
                             )
                             l
                     )
@@ -72,4 +73,5 @@ boardModel =
         , ( ( 1, 2 ), Explored (Bombs 0) )
         , ( ( 1, 3 ), Explored (Bombs 1) )
         , ( ( 1, 4 ), Explored (IsBomb) )
+        , ( ( 1, 5 ), Uninitialized None )
         ]

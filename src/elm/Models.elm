@@ -2,7 +2,7 @@ module Models exposing (..)
 
 --Custom imports
 
-import GameBoard.Models exposing (Board, boardModel, generateModel)
+import GameBoard.Models exposing (Board, boardModel, generateBoard)
 
 
 type alias Model =
@@ -13,5 +13,5 @@ type alias Model =
 model : Model
 model =
     { board =
-        generateModel 10
+        generateBoard 10
     }

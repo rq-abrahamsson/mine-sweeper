@@ -60,14 +60,23 @@ drawSquare ( coord, square ) =
             (Point { x = x * scale, y = y * scale })
     in
         case square of
+            Uninitialized None ->
+                unexploredSquare point
+
+            Uninitialized Flag ->
+                flagSquare point
+
+            Uninitialized QuestionMark ->
+                unknownSquare point
+
+            Unexplored _ None ->
+                unexploredSquare point
+
             Unexplored _ Flag ->
                 flagSquare point
 
             Unexplored _ QuestionMark ->
                 unknownSquare point
-
-            Unexplored _ None ->
-                unexploredSquare point
 
             Explored (Bombs number) ->
                 exploredSquare number point
