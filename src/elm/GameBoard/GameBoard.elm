@@ -24,7 +24,7 @@ gameBoard board =
             , SA.height "220"
             , SA.viewBox "0 0 220 220"
               --, SA.style "cursor: pointer"
-            , SA.style "default"
+            , SA.style "cursor: default"
             ]
             [ drawSquares board
             ]
@@ -40,9 +40,14 @@ drawSquares board =
         )
 
 
+size : number
+size =
+    15
+
+
 scale : number
 scale =
-    11
+    size + 1
 
 
 drawSquare : ( Coord, Square ) -> Svg.Svg Msg
@@ -74,6 +79,7 @@ drawSquare ( coord, square ) =
                 unexploredSquare point
 
 
+onRightClick : a -> Html.Attribute a
 onRightClick message =
     HE.onWithOptions
         "contextmenu"
@@ -86,13 +92,20 @@ onRightClick message =
 bombSquare : Point -> Svg.Svg Msg
 bombSquare (Point { x, y }) =
     Svg.rect
-        [ SA.width "10"
-        , SA.height "10"
+        [ SA.width <| toString <| size
+        , SA.height <| toString <| size
         , SA.x <| toString x
         , SA.y <| toString y
         , SA.fill "red"
         , SA.stroke "#333"
         , SA.opacity "0.5"
+        , SE.onClick
+            (SquareClicked
+                ( round (toFloat (x) / scale)
+                , round (toFloat (y) / scale)
+                )
+                Left
+            )
         , onRightClick
             (SquareClicked
                 ( round (toFloat (x) / scale)
@@ -118,6 +131,13 @@ unknownSquare point =
                     )
                     Left
                 )
+            , onRightClick
+                (SquareClicked
+                    ( round (toFloat (x) / scale)
+                    , round (toFloat (y) / scale)
+                    )
+                    Right
+                )
             ]
             [ unexploredSquare point
             , getQuestionmark point
@@ -127,10 +147,11 @@ unknownSquare point =
 getQuestionmark : Point -> Svg.Svg Msg
 getQuestionmark (Point { x, y }) =
     Svg.text_
-        [ SA.x <| toString <| x + 2
-        , SA.y <| toString <| y + 10
+        [ SA.x <| toString <| x + round (size / 5)
+        , SA.y <| toString <| y + size
         , SA.color "black"
-        , SA.fontSize "13"
+        , SA.fontSize <| toString (size + 3)
+        , SA.style "user-select: none;"
         ]
         [ Svg.text "?" ]
 
@@ -154,6 +175,13 @@ exploredSquare number point =
                             )
                             Left
                         )
+                    , onRightClick
+                        (SquareClicked
+                            ( round (toFloat (x) / scale)
+                            , round (toFloat (y) / scale)
+                            )
+                            Right
+                        )
                     ]
                     [ emptySquare point
                     , svgNumber number point
@@ -163,8 +191,8 @@ exploredSquare number point =
 emptySquare : Point -> Svg.Svg Msg
 emptySquare (Point { x, y }) =
     Svg.rect
-        [ SA.width "10"
-        , SA.height "10"
+        [ SA.width <| toString <| size
+        , SA.height <| toString <| size
         , SA.x <| toString x
         , SA.y <| toString y
         , SA.fill "#aaa"
@@ -177,10 +205,11 @@ emptySquare (Point { x, y }) =
 svgNumber : Int -> Point -> Svg.Svg Msg
 svgNumber number (Point { x, y }) =
     Svg.text_
-        [ SA.x <| toString <| x + 2
-        , SA.y <| toString <| y + 10
+        [ SA.x <| toString <| x + round (size / 5)
+        , SA.y <| toString <| y + size
         , SA.color "black"
-        , SA.fontSize "13"
+        , SA.fontSize <| toString (size + 3)
+        , SA.style "user-select: none;"
         ]
         [ Svg.text (toString number) ]
 
@@ -188,8 +217,8 @@ svgNumber number (Point { x, y }) =
 unexploredSquare : Point -> Svg.Svg Msg
 unexploredSquare (Point { x, y }) =
     Svg.rect
-        [ SA.width "10"
-        , SA.height "10"
+        [ SA.width <| toString <| size
+        , SA.height <| toString <| size
         , SA.x <| toString x
         , SA.y <| toString y
         , SA.fill "#555"
@@ -201,6 +230,13 @@ unexploredSquare (Point { x, y }) =
                 , round (toFloat (y) / scale)
                 )
                 Left
+            )
+        , onRightClick
+            (SquareClicked
+                ( round (toFloat (x) / scale)
+                , round (toFloat (y) / scale)
+                )
+                Right
             )
         ]
         []
@@ -217,17 +253,23 @@ flagSquare point =
 flag : Point -> Svg.Svg Msg
 flag (Point { x, y }) =
     let
+        closeleft =
+            size / 5
+
+        closeRight =
+            size - (size / 5)
+
         left =
-            toString (x + 2) ++ "," ++ toString (toFloat (y) + 2.5)
+            toString (toFloat x + closeleft) ++ "," ++ toString (toFloat y + (size / 4))
 
         topRight =
-            toString (x + 8) ++ "," ++ toString (y)
+            toString (toFloat x + closeRight) ++ "," ++ toString (y)
 
         bottomRight =
-            toString (x + 8) ++ "," ++ toString (y + 5)
+            toString (toFloat x + closeRight) ++ "," ++ toString (toFloat y + (size / 2))
 
         poleStart =
-            toString (x + 8) ++ "," ++ toString (y + 8)
+            toString (toFloat x + closeRight) ++ "," ++ toString (toFloat y + closeRight)
 
         flagPoints =
             left ++ " " ++ topRight ++ " " ++ bottomRight
@@ -240,10 +282,10 @@ flag (Point { x, y }) =
                 ]
                 []
             , Svg.line
-                [ SA.x1 (toString (x + 8))
+                [ SA.x1 (toString (toFloat x + closeRight))
                 , SA.y1 (toString (y))
-                , SA.x2 (toString (x + 8))
-                , SA.y2 (toString (y + 9))
+                , SA.x2 (toString (toFloat x + closeRight))
+                , SA.y2 (toString (y + size - 1))
                 , SA.strokeWidth "1"
                 , SA.stroke "black"
                 ]

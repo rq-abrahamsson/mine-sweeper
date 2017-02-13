@@ -12,5 +12,6 @@ type alias Model =
 
 model : Model
 model =
-    { board = generateModel 10
+    { board =
+        generateModel 10
     }
