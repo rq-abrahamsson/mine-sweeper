@@ -16,16 +16,19 @@ update message gameBoard =
             ( gameBoard, Cmd.none )
 
         SquareClicked coord direction ->
-            let
-                square =
-                    Dict.get coord gameBoard
-            in
-                case square of
-                    Just (Uninitialized tag) ->
-                        ( gameBoard, Cmd.none )
+            ( isClicked gameBoard coord direction, Cmd.none )
 
-                    _ ->
-                        ( isClicked gameBoard coord direction, Cmd.none )
+
+
+-- let
+--     square =
+--         Dict.get coord gameBoard
+-- in
+--     case square of
+--         Just (Uninitialized tag) ->
+--             ( gameBoard, Cmd.none )
+--         _ ->
+--             ( isClicked gameBoard coord direction, Cmd.none )
 
 
 isClicked : Board -> Coord -> Direction -> Board
@@ -46,10 +49,81 @@ leftClicked board coord =
     in
         case square of
             Just s ->
-                Dict.insert coord (squareLeftClicked s) board
+                case s of
+                    Uninitialized _ ->
+                        uninitializedClicked board coord
+
+                    _ ->
+                        Dict.insert coord (squareLeftClicked s) board
 
             Nothing ->
                 board
+
+
+uninitializedClicked : Board -> Coord -> Board
+uninitializedClicked board coord =
+    let
+        positions =
+            [ ( 0, -1 )
+            , ( 0, 1 )
+            , ( 1, -1 )
+            , ( 1, 0 )
+            , ( 1, 1 )
+            , ( -1, -1 )
+            , ( -1, 0 )
+            , ( -1, 1 )
+            ]
+
+        sumTuple x y =
+            ( (Tuple.first x) + (Tuple.first y), (Tuple.second x) + (Tuple.second y) )
+
+        squareValue =
+            List.foldl (\x y -> x + y)
+                0
+                (List.map
+                    (\x -> getSquareValue board (sumTuple coord x))
+                    positions
+                )
+    in
+        case squareValue of
+            0 ->
+                -- List.map (\x -> uninitializedClicked board (sumTuple coord x)) positions
+                let
+                    l =
+                        List.head positions
+                in
+                    case l of
+                        Just c ->
+                            -- uninitializedClicked (Dict.insert coord (Explored (Bombs squareValue)) board) (sumTuple coord c)
+                            Dict.insert coord (Explored (Bombs squareValue)) board
+
+                        Nothing ->
+                            Dict.insert coord (Explored (Bombs squareValue)) board
+
+            _ ->
+                Dict.insert coord (Explored (Bombs squareValue)) board
+
+
+getSquareValue : Board -> Coord -> Int
+getSquareValue board coord =
+    let
+        s =
+            Dict.get coord board
+    in
+        case s of
+            Just s ->
+                case s of
+                    Unexplored IsBomb _ ->
+                        1
+
+                    Explored IsBomb ->
+                        0
+
+                    _ ->
+                        0
+
+            Nothing ->
+                0
 
 
 squareLeftClicked : Square -> Square

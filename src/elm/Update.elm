@@ -15,7 +15,7 @@ update msg model =
             ( model, Cmd.none )
 
         InitBoard ->
-            ( { model | board = generateBoard 10 }, Cmd.none )
+            ( { model | board = generateBoard 5 }, Cmd.none )
 
         GameBoardMsg subMsg ->
             let

@@ -84,9 +84,6 @@ drawSquare ( coord, square ) =
             Explored IsBomb ->
                 bombSquare point
 
-            Explored Undefined ->
-                unexploredSquare point
-
 
 onRightClick : a -> Html.Attribute a
 onRightClick message =
